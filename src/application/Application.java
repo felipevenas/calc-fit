@@ -3,6 +3,8 @@ package application;
 import entities.User;
 import services.CalculatorService;
 
+import java.io.BufferedWriter;
+import java.io.FileWriter;
 import java.util.Locale;
 import java.util.Scanner;
 
@@ -11,6 +13,7 @@ public class Application {
 
         Scanner scanner = new Scanner(System.in).useLocale(Locale.US);
         User user = null;
+        CalculatorService cs = null;
 
         try {
 
@@ -69,7 +72,7 @@ public class Application {
 
                 System.out.println();
 
-                CalculatorService cs = new CalculatorService();
+                cs = new CalculatorService();
                 double creatine = cs.creatineCalculator(user);
                 double protein = cs.proteinCalculator(user);
                 double water = cs.waterCalculator(user);
@@ -77,7 +80,7 @@ public class Application {
                 switch (opcao) {
                     case 1: {
                         System.out.println("Sua quantidade de creatina diária: " + String.format("%.2f", creatine) + "g");
-                        
+
                         System.out.println();
                         break;
                     }
@@ -96,11 +99,44 @@ public class Application {
                     case 0: {
                         System.out.println("Encerrando...");
 
+                        System.out.println();
                         continuar = false;
                         break;
                     }
                 }
 
+            }
+
+            System.out.println("=========>>> Deseja exportar? <<<=========");
+            System.out.println("[1] Sim");
+            System.out.println("[0] Não");
+            System.out.print("-> ");
+            int opcao = scanner.nextInt();
+            scanner.nextLine();
+
+            System.out.println();
+
+            switch (opcao) {
+                case 1: {
+                    String path = "C:\\Users\\felip\\OneDrive\\Desktop\\doc.txt";
+                    try (BufferedWriter bw = new BufferedWriter(new FileWriter(path))) {
+                        bw.write("Dados cadastrais: " + user.getNomeCompleto() + " - " + user.getIdade());
+                        bw.newLine();
+                        bw.write("Proteína diária: " + cs.proteinCalculator(user) + "g");
+                        bw.newLine();
+                        bw.write("Creatina diária: " + cs.creatineCalculator(user) + "g");
+                        bw.newLine();
+                        bw.write("Água diária: " + cs.waterCalculator(user) + "L");
+                    }
+
+                    System.out.println("Arquivo exportado com sucesso!");
+                    break;
+                }
+                case 0: {
+                    System.out.println("Encerrando...");
+
+                    break;
+                }
             }
 
         }

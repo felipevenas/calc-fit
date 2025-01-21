@@ -1,6 +1,7 @@
 package application;
 
 import entities.User;
+import services.CalculatorService;
 
 import java.util.Locale;
 import java.util.Scanner;
@@ -37,7 +38,7 @@ public class Application {
                         System.out.print("Peso: ");
                         double peso = scanner.nextDouble();
 
-                        new User(nomeCompleto, idade, altura, peso);
+                        user = new User(nomeCompleto, idade, peso, altura);
                         System.out.println("Usuário cadastrado com sucesso!");
 
                         continuar = false;
@@ -68,21 +69,26 @@ public class Application {
 
                 System.out.println();
 
+                CalculatorService cs = new CalculatorService();
+                double creatine = cs.creatineCalculator(user);
+                double protein = cs.proteinCalculator(user);
+                double water = cs.waterCalculator(user);
+
                 switch (opcao) {
                     case 1: {
-                        System.out.println("Sua quantidade de creatina diária é:");
-
+                        System.out.println("Sua quantidade de creatina diária: " + String.format("%.2f", creatine) + "g");
+                        
                         System.out.println();
                         break;
                     }
                     case 2: {
-                        System.out.println("Sua quantidade de proteína diária é:");
+                        System.out.println("Sua quantidade de proteína diária: " + String.format("%.2f", protein) + "g");
 
                         System.out.println();
                         break;
                     }
                     case 3: {
-                        System.out.println("Sua quantidade de água diária é:");
+                        System.out.println("Sua quantidade de água diária: " + String.format("%.0f", water) + "L");
 
                         System.out.println();
                         break;
@@ -99,7 +105,7 @@ public class Application {
 
         }
         catch (Exception e) {
-
+            System.out.println("Ocorreu um erro: " + e.getMessage());
         }
 
     }

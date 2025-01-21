@@ -9,6 +9,7 @@ public class Application {
     public static void main(String[] args) {
 
         Scanner scanner = new Scanner(System.in).useLocale(Locale.US);
+        User user = null;
 
         try {
 
@@ -19,7 +20,7 @@ public class Application {
                 System.out.println("=========>>> CalcFit <<<=========");
                 System.out.println("[1] Cadastrar dados");
                 System.out.println("[0] Encerrar");
-                System.out.print("-> Selecione: ");
+                System.out.print("-> ");
                 int opcao = scanner.nextInt();
                 scanner.nextLine(); // Limpar o buffer...
 
@@ -36,7 +37,7 @@ public class Application {
                         System.out.print("Peso: ");
                         double peso = scanner.nextDouble();
 
-                        User newUser = new User(nomeCompleto, idade, altura, peso);
+                        new User(nomeCompleto, idade, altura, peso);
                         System.out.println("Usuário cadastrado com sucesso!");
 
                         continuar = false;

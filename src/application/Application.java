@@ -2,9 +2,8 @@ package application;
 
 import entities.User;
 import services.CalculatorService;
+import services.ExportService;
 
-import java.io.BufferedWriter;
-import java.io.FileWriter;
 import java.util.Locale;
 import java.util.Scanner;
 
@@ -118,18 +117,11 @@ public class Application {
 
             switch (opcao) {
                 case 1: {
-                    String path = "C:\\Users\\felip\\OneDrive\\Desktop\\doc.txt";
-                    try (BufferedWriter bw = new BufferedWriter(new FileWriter(path))) {
-                        bw.write("Dados cadastrais: " + user.getNomeCompleto() + " - " + user.getIdade());
-                        bw.newLine();
-                        bw.write("Proteína diária: " + cs.proteinCalculator(user) + "g");
-                        bw.newLine();
-                        bw.write("Creatina diária: " + cs.creatineCalculator(user) + "g");
-                        bw.newLine();
-                        bw.write("Água diária: " + cs.waterCalculator(user) + "L");
-                    }
+                    ExportService es = new ExportService();
+                    es.export(user, cs);
 
                     System.out.println("Arquivo exportado com sucesso!");
+
                     break;
                 }
                 case 0: {

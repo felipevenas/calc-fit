@@ -7,7 +7,8 @@ public class User {
     private Double peso;
     private Double altura;
 
-    public User() {}
+    public User() {
+    }
 
     public User(String nomeCompleto, Integer idade, Double peso, Double altura) {
         this.nomeCompleto = nomeCompleto;
@@ -46,6 +47,14 @@ public class User {
 
     public void setAltura(Double altura) {
         this.altura = altura;
+    }
+
+    public String toString() {
+        return "DADOS DO USUÁRIO: " +
+                nomeCompleto.toUpperCase() + " - " +
+                    idade + " - " +
+                        String.format("%.2f", peso) + "KG - " +
+                            String.format("%.2f", altura) + "M.";
     }
 
 }

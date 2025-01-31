@@ -5,6 +5,7 @@ import entities.User;
 import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.function.Predicate;
 
 public class ExportService {
 
@@ -13,24 +14,17 @@ public class ExportService {
     public void export(User user, CalculatorService cs) {
 
         try (BufferedWriter bw = new BufferedWriter(new FileWriter(path))) {
-            bw.write("============================================================");
+            bw.write(user.getNomeCompleto().toUpperCase() + " - " + String.format("%.1f", user.getPeso()) + " KG");
             bw.newLine();
-            bw.write("============================================================");
-            bw.newLine();
-            bw.write("Usuário: " + user.getNomeCompleto() + " - " + user.getPeso());
+            bw.write("Dosagens diárias recomendadas:");
             bw.newLine();
             bw.newLine();
-            bw.write("Proteína diária: " + cs.proteinCalculator(user) + "g");
+            bw.write("Creatina: " + " ["+ String.format("%.2f", cs.creatineCalculator(user)) + "] G");
             bw.newLine();
-            bw.write("Creatina diária: " + cs.creatineCalculator(user) + "g");
+            bw.write("Proteína: " + " [" + String.format("%.2f", cs.proteinCalculator(user)) + "] G");
             bw.newLine();
-            bw.write("Água diária: " + cs.waterCalculator(user) + "L");
-            bw.newLine();
-            bw.write("============================================================");
-            bw.newLine();
-            bw.write("============================================================");
-        }
-        catch (IOException e) {
+            bw.write("Água: " + " [" + String.format("%.2f", cs.waterCalculator(user)) + "] L");
+        } catch (IOException e) {
             throw new RuntimeException(e);
         }
 

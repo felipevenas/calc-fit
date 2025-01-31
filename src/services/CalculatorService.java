@@ -4,7 +4,7 @@ import entities.User;
 
 public class CalculatorService {
 
-     public double proteinCalculator(User user) {
+    public double proteinCalculator(User user) {
         return 2 * user.getPeso();
     }
 
